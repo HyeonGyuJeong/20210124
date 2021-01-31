@@ -134,3 +134,81 @@
 </body>
 
 </html>
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#example3",
+        data: {
+            style1: {}
+        },
+        //template: ``,
+        methods: {
+            clickArrow: function(event) {
+                var style = {
+                    height: "50px",
+                    width: "150px",
+                    border: "1px solid black",
+                    textAlign: "center",
+                    lineHeight: "50px",
+                    fontWeight: "800",
+                    color: "red",
+                    backgroundColor: "darkgoldenrod",
+                    padding: "50px"
+                };
+                this.$set(this.$data, "style1", style);
+            }
+        }
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#elvue",
+        data: {
+            style1: {}
+        },
+        //template: ``,
+        methods: {
+            //버튼 위로 mouseover 되면 배경색은 purple 로 글자색은 yellow 로 바꾸도록 style 을 설정하시오.
+        //버튼 위에서 mouseout 되면 배경색을 aqua 로 글자색은 black 으로 바꾸도록 style 을 설정하시오.
+            overEvent: function(event) {
+                this.$data.style1= {
+                    backgroundColor: "purple",
+                    color: "yellow"
+                }
+            },
+            outEvent: function(event) {
+                this.$data.style1= {
+                    backgroundColor: "aqua",
+                    color: "black"
+                }
+            }
+        },
+        components: {
+            /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+        },
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+
+
+</script>

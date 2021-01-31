@@ -45,10 +45,10 @@
             querySelector()를 사용하여 배경색이 orange 인 엘리먼트를 찾아서
             csbord 와 whsize 스타일을 추가하고 배경색을 yellow 로 설정하시오.
 
-        3. 학습. 
+        3. 학습.
             v-bind 지시자를 사용하여 id="app3" 엘리먼트에 class 속성을 적용하시오.
-            id="app3" 엘리먼트를 찾고 csbord 와 whsize 스타일을 추가하고 <== 같이 
-            배경색을 yellow 로 설정하시오. <==각자 
+            id="app3" 엘리먼트를 찾고 csbord 와 whsize 스타일을 추가하고 <== 같이
+            배경색을 yellow 로 설정하시오. <==각자
     </xmp>
     <hr>
 
@@ -86,3 +86,65 @@
 </body>
 
 </html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    function btn1_onclick() {
+        var tag = document.getElementById("app");
+        tag.setAttribute("class", "csbord whsize");
+        tag.setAttribute("style", "background-color: aqua");
+    }
+
+    function btn2_onclick() {
+        var tag = document.getElementById("app");
+        tag.className = "csbord whsize";
+        tag.style.backgroundColor= "yellow";
+    }
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app3",
+        data: {
+            css1: {csbord: false, whsize: false}
+        },
+        //template: ``,
+        methods: {
+            btn6_onclick: function(event, className, show) {
+                this.$data.css1[className] = show;
+                //this.$set(this.$data.css1, className, show);
+
+            },
+            btn5_onclick: function(event, show) {
+                //this.$data.css1.csbord = show;
+                //this.$data.css1whsize = show;
+
+                for (const prop in this.$data.css1) {
+                    this.$data.css1[prop] = show;
+                }
+            }
+        },
+        components: {
+            /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+        },
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+
+</script>
