@@ -100,11 +100,11 @@
             span에 mouseup 이벤트 핸들러를 작성하시오. ==> spanmouseup. background-color를 pink로 설정
             span에 mouseout 이벤트 핸들러를 작성하시오. ==> spanmouseout. background-color를 red로 설정
         </xmp>
-        <span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout">
         </span>
-        <span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout">
         </span>
-        <span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout">
         </span>
         <hr />
 
@@ -179,37 +179,21 @@
                 }
             },
             spanmouseover: function(event) {
-
+                event.target.style.backgroundColor = "yellow";
             },
             spanmousedown: function(event) {
-
+                event.target.style.backgroundColor = "blue";
+            },
+            spanmouseup: function(event) {
+                event.target.style.backgroundColor = "pink";
             },
             spanmouseout: function(event) {
-
-            },
-            spanmouseover: function(event) {
-
+                event.target.style.backgroundColor = "red";
             },
             selectchange: function(event) {
                 this.$set(this.$data, "img_select", event.target.value);
             }
-        },
-        components: {
-            /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
-
-        },
-        computed: {
-
-        },
-        watch: {
-
-        },
-        mounted: function() {
-            console.log("mounted");
-        },
-        updated: function() {
-            console.log("updated");
-        },
+        }
     });
 
 </script>
