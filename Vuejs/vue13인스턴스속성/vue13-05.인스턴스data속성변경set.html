@@ -140,6 +140,15 @@
                 this.$data.arr.splice(0, 2);    //0부터 2번 전까지 지우고 새로운 배열을 만든다.
             }, change4: function(event) {
                 console.log(event.target);
+
+                console.log(this.$data.arr); // [3, 4, 5]
+                // srpead 연산자
+                //var arr = [500, 3, 4, 5, 70];
+                // ...this.$data.arr = 3, 4, 5
+                var arr_copy = [500, ...this.$data.arr, 70];
+                //this.$data.arr = arr_copy;
+                this.$set(this.$data, "arr", arr_copy);
+
             }
         },
         components: {

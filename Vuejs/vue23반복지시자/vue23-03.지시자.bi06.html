@@ -26,9 +26,9 @@
         3. "추가" 버튼을 클릭하면 행이 추가되게 작성하시오.
 
         4. "추가" 버튼 기능 개선
-            input 태그 3개를 추가 하고 
-            "추가" 버튼을 클릭하면  
-            input 입력값을 이용하여 객체를 만들고 
+            input 태그 3개를 추가 하고
+            "추가" 버튼을 클릭하면
+            input 입력값을 이용하여 객체를 만들고
             만들어진 객체를 Object Array에 추가한다.
             <label for="">이름</label><input v-model:value="name">
             <label for="">전화번호</label><input v-model:value="tel">
@@ -36,7 +36,12 @@
     </xmp>
     <hr>
 
+
     <div id="app" class="col-md-10 offset-md-1">
+        <button v-on:click="btnAddClick">추가</button>
+        <label for="">이름</label><input v-model:value="name">
+        <label for="">전화번호</label><input v-model:value="tel">
+        <label for="">주소</label><input v-model:value="address">
         <table id="list" class="table-bordered">
             <thead>
                 <tr class="bg-warning text-white text-center">
@@ -58,8 +63,58 @@
     </div>
 
 
-    
+
 
 </body>
 
 </html>
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            contacts: [
+                {name: "설현", tel: "010-3456-8200", address: "서현"},
+                {name: "혜리", tel: "010-3456-8299", address: "서리"},
+            ],
+            name: null,
+            tel: null,
+            address: null
+        },
+        //template: ``,
+        methods: {
+            btnAddClick:function(event) {
+                var obj = {name: this.$data.name, tel: this.$data.tel, address: this.$data.address};
+                //this.$data.contacts.push(obj);
+                //this.$data.contacts[this.$data.contacts.length] = obj;
+                this.$set(this.$data.contacts, this.$data.contacts.length, obj);
+            }
+        },
+        components: {
+            /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+        },
+        computed: {
+
+        },
+        watch: {
+
+        },
+        mounted: function() {
+            console.log("mounted");
+        },
+        updated: function() {
+            console.log("updated");
+        },
+    });
+
+</script>
