@@ -16,27 +16,27 @@
 
       1 상태 관리란?
         상태 관리란 한 곳에서 여러 컴포넌트 간에 공유되는 데이터를 관리한다는 것을 의미합니다.
-        데이터 공유 
+        데이터 공유
             컴포넌트 <--> 컴포넌트: props, 이벤트
             인스턴스 <--> 컴포넌트: props, 이벤트
-            
+
 
       2 상태 관리(State Management)가 왜 필요한가?
        컴포넌트로 화면을 구성하는 경우 컴포넌트간의 데이터 공유가 필요합니다.
        컴포넌트가 많은 경우 props나 이벤트, 이벤트버스를 사용하여 상태를 관리하는 것은 효율적이지 않습니다.
-       컴포넌트가 많은 경우 효율적인 컴포넌트 간의 통신이나 데이터 관리 방밥이 필요합니다.
+       컴포넌트가 많은 경우 효율적인 컴포넌트 간의 통신이나 데이터 관리 방법이 필요합니다.
        그것이 Vuex 입니다.
-       
+
       3. Vuex란?
        Vue.js의 상태 관리 라이브러리입니다.
-       
-      4. 왜 Vuex 를 사용해야 하는가? 
+
+      4. 왜 Vuex 를 사용해야 하는가?
       ==>
        일반적으로 앱의 규모가 커지면서 생기는 문제점들은 다음과 같습니다.
        . 너무 많은 props, event emit 사용
        . Event Bus사용으로 인해 컴포넌트 간 데이터 흐름을 파악하기 어려운 경우
       이러한 문제점이 발생 하는 경우 Vuex를 사용하면 쉽게 해결 할 수 있습니다.
-      복잡한 state down(props) / state up(event) 처리를 없애기 위해서 사용 된다. 
+      복잡한 state down(props) / state up(event) 처리를 없애기 위해서 사용 된다.
 
       5. Vuex 구성 5 요소
        . view(==component) : 컴포넌트 나 인스턴스가 된다.
@@ -49,12 +49,12 @@
        . getter:
 
     -------------------------------------------------------
-    
+
       작업1. vue 인스턴스 기능 완성. data 프로퍼티 추가
           {{header}} 에는 "Vuex 사용 앱" 가 나오게
           {{welcome}} 에는 "HELLO WORLD" 가 나오게
           {{counter}} 에는 0 이 나오게
-  
+
       작업2. vue 인스턴스 기능 완성. 버튼 추가
           <button v-on:click="increment">더해줘</button>
           <button v-on:click="decrement">빼줘</button>
@@ -75,3 +75,89 @@
 </body>
 
 </html>
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script>
+  //Vuex 인스턴스 생성
+  var store = new Vuex.Store({
+    actions: {
+      increment: function(mutations, param) {
+        window.setTimeout(() => {
+          mutations.commit("increment", param);
+        }, 1000);
+      },
+      decrement: function(mutations, param) {
+        window.setTimeout(() => {
+          mutations.commit("decrement", param);
+        }, 1000);
+      }
+    },
+    mutations: {
+      increment: function(state, param) {
+        state.counter = state.counter + param;
+      },
+      decrement: function(state, param) {
+        state.counter = state.counter + param;
+      }
+    },
+    state: {
+      welcome: "HELLO WORLD STORE",
+      counter: 10
+    },
+    getters: {
+      welcome: function(state) {
+        return state.welcome;
+      },
+      counter: function(state) {
+        return state.counter;
+      }
+    }
+  });
+
+  new Vue({
+      /* edtmc^2w */
+      el: "#app",
+      data: {
+          header: "Vuex 사용 앱",
+          //welcome: "HELLO WORLD",
+          //counter: 0
+      },
+      //template: ``,
+      methods: {
+        increment: function(event) {
+          //버튼을 누르면 store의 action 호출
+          //store.dispatch("액션 명", 액션 값);
+          store.dispatch("increment", +10);
+        },
+        decrement: function(event) {
+          //버튼을 누르면 store의 action 호출
+          //store.dispatch("액션 명", 액션 값);
+          store.dispatch("decrement", -10);
+        }
+      },
+      components: {
+          /* 컴포넌트 등록. 예시) "태그명" : 컴포넌트명 */
+
+      },
+      computed: {
+        welcome: function() {
+          return store.getters.welcome;
+        },
+        counter: function() {
+          return store.getters.counter;
+        }
+      },
+      watch: {
+
+      },
+      mounted: function() {
+          console.log("mounted");
+      },
+      updated: function() {
+          console.log("updated");
+      },
+  });
+
+</script>
