@@ -64,6 +64,20 @@
 
       작업4. store를 사용하도록 인스턴스나 컴포넌트 코드 수정
     </xmp>
+    <div style="margin: 40px 0 0 20px;">
+      <div>
+          <p>외부 함수 호출 기능을 추가하기 위해서는 서버 기능이 필요합니다.</p>
+          <p>
+              1. 실행 전에  서버를 실행하세요.
+              <a href="#" onClick="window.open('../../ES2016문법/ap09.서버통신/ap09-03.Node서버실행.html','vue09-03.Node서버실행','width=800,height=650,toolbar=no,menubar=no,scrollbars=no,resizable=yes');return false;" rel="nofollow">vue09-03.Node서버실행</a>
+          </p>
+          <p>
+              2. 브라우저로 서버 실행 여부 확인<br>
+              http://localhost:5050/counter   ==> 1 씩 증가<br>
+              http://localhost:5050/counter?step=10  ==> 10 씩 증가<br>
+          </p>
+      </div>
+  </div>
     <hr>
     <div id="app">
         <h1>{{header}}</h1>
@@ -77,29 +91,60 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
 <script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
 <script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
 <script>
   //Vuex 인스턴스 생성
   var store = new Vuex.Store({
     actions: {
       increment: function(mutations, param) {
-        window.setTimeout(() => {
-          mutations.commit("increment", param);
-        }, 1000);
+        //mutations.commit("increment", param);
+        // import axios from "axios";
+
+        axios({
+            url: "http://localhost:5050/counter?step=5",  // 호출되는 서버 주소.
+            method: "get",       // request method: get, post, delete, put
+            params: { },  // 서버로 보내는 데이터. 예시) { data1:"test1", data2:"test2" }
+            timeout: 30000,    // 최대 대기 시간: 30초. 30초 이상이 되면 fail 부분이 실행됨.
+            responseType: "json",  // response로 넘어오는 데이터 형태: text, html, xml, json, jsonp, script
+        })
+        .then( (res) => {
+            console.log(res.data);
+            //this.message1 = res.data;
+            mutations.commit("increment", res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
       },
       decrement: function(mutations, param) {
-        window.setTimeout(() => {
-          mutations.commit("decrement", param);
-        }, 1000);
+        axios({
+            url: "http://localhost:5050/counter?step=-5",  // 호출되는 서버 주소.
+            method: "get",       // request method: get, post, delete, put
+            params: { },  // 서버로 보내는 데이터. 예시) { data1:"test1", data2:"test2" }
+            timeout: 30000,    // 최대 대기 시간: 30초. 30초 이상이 되면 fail 부분이 실행됨.
+            responseType: "json",  // response로 넘어오는 데이터 형태: text, html, xml, json, jsonp, script
+        })
+        .then( (res) => {
+            console.log(res.data);
+            //this.message1 = res.data;
+            mutations.commit("decrement", res.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
       }
     },
     mutations: {
       increment: function(state, param) {
-        state.counter = state.counter + param;
+        state.counter = param;
       },
       decrement: function(state, param) {
-        state.counter = state.counter + param;
+        state.counter = param;
       }
     },
     state: {
