@@ -80,3 +80,55 @@
 </body>
 
 </html>
+
+
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app1",
+        data: {
+            idA: null,
+            classA: null,
+            styleA: null,
+            message: null,
+            imagePath: null
+        },
+        methods: {
+            clickBindId: function(event) {
+                this.$set(this.$data, "idA", "abc");
+            },
+            clickBindClass: function(event) {
+                this.$set(this.$data, "classA", "container");
+            },
+            clickBindStyle: function(event) {
+                //this.$set(this.$data, "styleA", {color: "blue", fontSize: "20pt"});
+                this.$set(this.$data, "styleA", "color: blue; font-size: 20pt;");
+            },
+            clickBindValue: function(event) {
+                this.$set(this.$data, "message", "v-bind value");
+            },
+            clickBindSrc: function(event) {
+                this.$set(this.$data, "imagePath", "../images/heart.png");
+            }
+        }
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app2",
+        data: {
+            message: null,
+            imagePath: "../images/accept.png"
+        },
+        //template: ``,
+        methods: {
+            clickBindSrc: function(event) {
+                this.$set(this.$data, "message", "버튼클릭");
+                this.$set(this.$data, "imagePath", "../images/action_refresh.gif");
+            }
+        }
+    });
+
+</script>
