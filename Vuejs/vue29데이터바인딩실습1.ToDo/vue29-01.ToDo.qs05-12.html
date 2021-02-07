@@ -314,19 +314,50 @@
         //template: ``,
         methods: {
             addTodo: function(event) {
+                //최대 id 값을 구하는 방법.
+                //방법1. .reduce()
+                //방법2. .map() 를 사용하는 방법
 
+                var maxObj = null;
+                if (this.$data.todoItems.length > 0) {
+                    maxObj = this.$data.todoItems.reduce((prev, next) => {
+                        //최대 id값을 갖고있는 item을 찾는다.
+                        return prev.id > next.id ? prev : next;
+                    });
+                } else {
+                    //빈 배열인 경우
+                    maxObj = { id: 0, todo: null, done: false };
+                }
+
+                var maxId = this.$data.todoItems.length;
+                var newTodo = {
+                    id: maxObj.id + 1,
+                    todo: this.$data.newTodoItem,
+                    done: false
+                }
+                //this.$data.todoItems.push(newTodo);
+                //this.$data.todoItems[maxId] = newTodo;
+                this.$set(this.$data.todoItems, this.$data.todoItems.length, newTodo);
+
+                //화면에 남아있는 입력값 지우기
+                this.$set(this.$data, "newTodoItem", "");
             },
             checked: function(done) {
-
+                if (done) {
+                    return "checked";
+                } else {
+                    return null;
+                }
             },
             doneToggle: function(id, index) {
-
+                //this.$data.todoItems[index].done = !this.$data.todoItems[index].done;
+                this.$set(this.$data.todoItems[index], "done", !this.$data.todoItems[index].done);
             },
             removeTodo: function(id, index) {
-
+                this.$set(this.$data.todoItems, index, {});
             },
             clearAll: function() {
-
+                this.$set(this.$data, "todoItems", []);
             }
         },
         components: {
